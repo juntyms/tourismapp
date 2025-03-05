@@ -35,15 +35,41 @@ class MyHome extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.green[800],
       ),
-      body: Container(
-        color: Colors.green[800],
-        margin: EdgeInsets.zero,
-        padding: EdgeInsets.all(20),
-        height: 300.0,
-        width: 500.0,
-        child: Image(
-          image: AssetImage('images/Salalah1.jpg'),
-        ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.green[800],
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.all(20),
+            height: 300.0,
+            width: 500.0,
+            child: Image(
+              image: AssetImage('images/Salalah1.jpg'),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Card(
+                  elevation: 0.0,
+                  margin: EdgeInsets.all(10),
+                  child: SizedBox(
+                      width: 200,
+                      child: Image(image: AssetImage('images/Salalah2.jpg'))),
+                ),
+              ),
+              Expanded(
+                child: Card(
+                  elevation: 0.0,
+                  margin: EdgeInsets.all(10),
+                  child: SizedBox(
+                      width: 200,
+                      child: Image(image: AssetImage('images/Salalah3.jpg'))),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
