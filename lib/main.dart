@@ -35,88 +35,106 @@ class MyHome extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.green[800],
       ),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.green[800],
-            margin: EdgeInsets.zero,
-            padding: EdgeInsets.all(20),
-            height: 300.0,
-            width: 500.0,
-            child: Image(
-              image: AssetImage('images/Salalah1.jpg'),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            color: Colors.amber,
-            child: Text(
-              'Popular Places',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.green[800],
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.all(20),
+              height: 300.0,
+              width: 500.0,
+              child: Image(
+                image: AssetImage('images/Salalah1.jpg'),
               ),
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 0.0,
-                      margin: EdgeInsets.all(10),
-                      child: SizedBox(
-                        width: 200,
-                        child: Image(image: AssetImage('images/Salalah2.jpg')),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: Text('Darbat Falls / OMR 25')),
-                        Spacer(),
-                        Align(alignment: Alignment.bottomRight, child: fav()),
-                      ],
-                    )
-                  ],
+            Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              color: Colors.amber,
+              child: Text(
+                'Popular Places',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 0.0,
-                      margin: EdgeInsets.all(10),
-                      child: SizedBox(
-                        width: 200,
-                        child: Image(image: AssetImage('images/Salalah3.jpg')),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 0.0,
+                        margin: EdgeInsets.all(10),
+                        child: SizedBox(
+                          width: 200,
+                          child:
+                              Image(image: AssetImage('images/Salalah2.jpg')),
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: Text('Haffa Beach / OMR 20 ')),
-                        Spacer(),
-                        Align(alignment: Alignment.bottomRight, child: fav()),
-                      ],
-                    )
-                  ],
+                      Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Text('Darbat Falls / OMR 25')),
+                          Spacer(),
+                          Align(alignment: Alignment.bottomRight, child: Fav()),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 0.0,
+                        margin: EdgeInsets.all(10),
+                        child: SizedBox(
+                          width: 200,
+                          child:
+                              Image(image: AssetImage('images/Salalah3.jpg')),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Text('Haffa Beach / OMR 20 ')),
+                          Spacer(),
+                          Align(alignment: Alignment.bottomRight, child: Fav()),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              color: Colors.amber[900],
+              height: 5,
+            ),
+            Container(
+              width: double.infinity,
+              color: Colors.grey,
+              child: Text(
+                'Currency Converter',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
-          Container(
-            width: double.infinity,
-            color: Colors.amber[900],
-            height: 5,
-          ),
-          Currency(),
-        ],
+            ),
+            Currency(),
+            Discount()
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -128,14 +146,14 @@ class MyHome extends StatelessWidget {
   }
 }
 
-class fav extends StatefulWidget {
-  const fav({super.key});
+class Fav extends StatefulWidget {
+  const Fav({super.key});
 
   @override
-  State<fav> createState() => _favState();
+  State<Fav> createState() => _FavState();
 }
 
-class _favState extends State<fav> {
+class _FavState extends State<Fav> {
   bool liked = false;
   @override
   Widget build(BuildContext context) {
@@ -161,8 +179,8 @@ class Currency extends StatefulWidget {
 }
 
 class _CurrencyState extends State<Currency> {
-  TextEditingController _curr = TextEditingController();
-  double curr_rate = 0;
+  final TextEditingController _curr = TextEditingController();
+  double currRate = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -184,7 +202,7 @@ class _CurrencyState extends State<Currency> {
           OutlinedButton(
             onPressed: () {
               setState(() {
-                curr_rate = (double.parse(_curr.text)) * 2.60;
+                currRate = (double.parse(_curr.text)) * 2.60;
               });
             },
             style: OutlinedButton.styleFrom(maximumSize: Size(100, 50)),
@@ -197,7 +215,7 @@ class _CurrencyState extends State<Currency> {
             height: 20,
           ),
           Text(
-            'OMR TO USD : ' + curr_rate.toString(),
+            'OMR TO USD : $currRate',
             style: TextStyle(
                 fontSize: 20,
                 color: Colors.blueGrey,
@@ -206,6 +224,210 @@ class _CurrencyState extends State<Currency> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Discount extends StatefulWidget {
+  const Discount({super.key});
+
+  @override
+  State<Discount> createState() => _DiscountState();
+}
+
+class _DiscountState extends State<Discount> {
+  String mtype = "mc";
+  final TextEditingController _tourRate = TextEditingController();
+  double discount = 0.0;
+  double netRate = 0.0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          color: Colors.amber[900],
+          height: 5,
+        ),
+        Container(
+          width: double.infinity,
+          color: Colors.grey,
+          child: Text('Tour Discount',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.white)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _tourRate,
+                onChanged: (value) {
+                  setState(() {
+                    if (_tourRate.text.isNotEmpty &&
+                        double.parse(_tourRate.text) != 0) {
+                      discount = double.parse(_tourRate.text) * 0.8;
+                      netRate = double.parse(_tourRate.text) - discount;
+                    } else {
+                      discount = 0.0;
+                      netRate = 0.0;
+                    }
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Tour Rate',
+                  prefixIcon: Icon(Icons.money),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              RadioListTile(
+                title: Text("Member Customer"),
+                value: "mc",
+                groupValue: mtype,
+                onChanged: (value) {
+                  setState(() {
+                    mtype = value.toString();
+                    if (_tourRate.text.isNotEmpty &&
+                        double.parse(_tourRate.text) != 0) {
+                      discount = double.parse(_tourRate.text) * 0.8;
+                      netRate = double.parse(_tourRate.text) - discount;
+                    }
+                  });
+                },
+              ),
+              RadioListTile(
+                  title: Text("Guest Customer"),
+                  value: "gc",
+                  groupValue: mtype,
+                  onChanged: (value) {
+                    setState(() {
+                      mtype = value.toString();
+
+                      if (_tourRate.text.isNotEmpty &&
+                          double.parse(_tourRate.text) != 0) {
+                        discount = double.parse(_tourRate.text) * 0.5;
+                        netRate = double.parse(_tourRate.text) - discount;
+                      }
+                    });
+                  }),
+              Text('Tour Estimated Rate'),
+              Text('Discount: $discount'),
+              Text('Net Rate: $netRate'),
+              SizedBox(
+                height: 50.0,
+              )
+            ],
+          ),
+        ),
+        Tours()
+      ],
+    );
+  }
+}
+
+class Tours extends StatefulWidget {
+  const Tours({super.key});
+
+  @override
+  State<Tours> createState() => _ToursState();
+}
+
+class _ToursState extends State<Tours> {
+  bool ta = false;
+  bool tb = false;
+  bool tc = false;
+  bool td = false;
+  double tourPrice = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          color: Colors.grey,
+          alignment: Alignment.center,
+          child: Text(
+            'Tours',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        CheckboxListTile(
+          title: Image(image: AssetImage('images/Salalah1.jpg')),
+          value: ta,
+          onChanged: (value) {
+            setState(() {
+              ta = value!;
+              if (ta) {
+                tourPrice += 150;
+              } else {
+                tourPrice -= 150;
+              }
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Image(image: AssetImage('images/Salalah2.jpg')),
+          value: tb,
+          onChanged: (value) {
+            setState(() {
+              tb = value!;
+              if (tb) {
+                tourPrice += 50;
+              } else {
+                tourPrice -= 50;
+              }
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Image(image: AssetImage('images/Salalah3.jpg')),
+          value: tc,
+          onChanged: (value) {
+            setState(() {
+              tc = value!;
+              if (tc) {
+                tourPrice += 70;
+              } else {
+                tourPrice -= 70;
+              }
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Image(image: AssetImage('images/Salalah4.jpg')),
+          value: td,
+          onChanged: (value) {
+            setState(() {
+              td = value!;
+              if (td) {
+                tourPrice += 70;
+              } else {
+                tourPrice -= 70;
+              }
+            });
+          },
+        ),
+        Container(
+          width: double.infinity,
+          alignment: Alignment.center,
+          color: Colors.grey,
+          child: Text(
+            'Total Tour Price: $tourPrice',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
+        SizedBox(
+          height: 100.0,
+        )
+      ],
     );
   }
 }
