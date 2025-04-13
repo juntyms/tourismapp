@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -132,7 +133,12 @@ class MyHome extends StatelessWidget {
               ),
             ),
             Currency(),
-            Discount()
+            Discount(),
+            Tours(),
+            MyTableCalendar(),
+            SizedBox(
+              height: 100.0,
+            ),
           ],
         ),
       ),
@@ -322,7 +328,6 @@ class _DiscountState extends State<Discount> {
             ],
           ),
         ),
-        Tours()
       ],
     );
   }
@@ -426,7 +431,56 @@ class _ToursState extends State<Tours> {
         ),
         SizedBox(
           height: 100.0,
-        )
+        ),
+      ],
+    );
+  }
+}
+
+class MyTableCalendar extends StatefulWidget {
+  const MyTableCalendar({super.key});
+
+  @override
+  State<MyTableCalendar> createState() => _MyTableCalendarState();
+}
+
+class _MyTableCalendarState extends State<MyTableCalendar> {
+  DateTime selectedDay = DateTime.now();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          color: Colors.grey,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: Text(
+            'Select Tour Date',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        TableCalendar(
+          rowHeight: 40,
+          headerStyle: HeaderStyle(
+            formatButtonVisible: false,
+            titleCentered: true,
+          ),
+          firstDay: DateTime.utc(2020, 1, 1),
+          lastDay: DateTime.utc(2030, 12, 31),
+          focusedDay: selectedDay,
+          calendarFormat: CalendarFormat.month,
+          startingDayOfWeek: StartingDayOfWeek.sunday,
+          daysOfWeekVisible: true,
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              this.selectedDay = selectedDay;
+            });
+          },
+          selectedDayPredicate: (day) => isSameDay(selectedDay, day),
+        ),
       ],
     );
   }
