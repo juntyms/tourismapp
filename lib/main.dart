@@ -139,6 +139,7 @@ class MyHome extends StatelessWidget {
             SizedBox(
               height: 100.0,
             ),
+            DropButton()
           ],
         ),
       ),
@@ -147,6 +148,64 @@ class MyHome extends StatelessWidget {
         backgroundColor: Colors.green[400],
         foregroundColor: Colors.white,
         child: Icon(Icons.add_circle_sharp),
+      ),
+    );
+  }
+}
+
+class DropButton extends StatefulWidget {
+  const DropButton({super.key});
+
+  @override
+  State<DropButton> createState() => _DropButtonState();
+}
+
+class _DropButtonState extends State<DropButton> {
+  String selectedval = 'Sightseeing';
+  List tours = ['Sightseeing', 'Adventure', 'Relaxation'];
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 200.0,
+      child: ListView(
+        children: [
+          Container(
+            width: double.infinity,
+            color: Colors.grey,
+            child: Text('Tour Type',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber)),
+          ),
+          Text(
+            'Select Tour Type',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          DropdownButton(
+            icon: Icon(Icons.arrow_drop_down),
+            items: tours.map((e) {
+              return DropdownMenuItem(
+                value: e,
+                child: Text(e),
+              );
+            }).toList(),
+            value: selectedval,
+            onChanged: (value) {
+              setState(() {
+                selectedval = value.toString();
+              });
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
       ),
     );
   }
