@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'registration_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,18 @@ class MyHome extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: Colors.green[800],
+        leading: Builder(builder: (context) {
+          return IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          );
+        }),
+      ),
+      drawer: Drawer(
+        child: SideDrawer(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -149,6 +162,97 @@ class MyHome extends StatelessWidget {
         foregroundColor: Colors.white,
         child: Icon(Icons.add_circle_sharp),
       ),
+    );
+  }
+}
+
+class SideDrawer extends StatefulWidget {
+  const SideDrawer({super.key});
+
+  @override
+  State<SideDrawer> createState() => _SideDrawerState();
+}
+
+class _SideDrawerState extends State<SideDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(children: [
+        UserAccountsDrawerHeader(
+          accountName: Text('Junn Eric'),
+          accountEmail: Text('junn.eric@utas.edu.om'),
+          currentAccountPicture: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: ClipOval(
+              child: Image(
+                image: AssetImage('images/profile.png'),
+                fit: BoxFit.cover,
+                width: 100.0,
+                height: 100.0,
+              ),
+            ),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.home),
+          title: Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.question_answer),
+          title: Text(
+            'About',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.edit_document),
+          title: Text(
+            'Registration',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => RegistrationPage(),
+            ));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.login),
+          title: Text(
+            'Sign In',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.logout),
+          title: Text(
+            'Sign Out',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {},
+        ),
+      ]),
     );
   }
 }
