@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "503670974512",
+    "project_id": "tourismappasus",
+    "storage_bucket": "tourismappasus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503670974512:android:a7d9e1885cf11cc599e5f5",
+        "android_client_info": {
+          "package_name": "com.example.tourismapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz2ghiKEexz36J-nfxEQ3DwF-bt1rusR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

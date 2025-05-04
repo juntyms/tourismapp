@@ -1,4 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tourismapp/login_page.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -8,31 +13,71 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  TextEditingController _uname = TextEditingController();
-  TextEditingController _pass = TextEditingController();
-  TextEditingController _cpass = TextEditingController();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _fullname = TextEditingController();
-  TextEditingController _birthdate = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _cpass = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _fullname = TextEditingController();
+  final TextEditingController _birthdate = TextEditingController();
+
+  Future registerUser() async {
+    if (_pass.text == _cpass.text) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _email.text.trim(),
+        password: _pass.text.trim(),
+      );
+      addUserDetails();
+    }
+  }
+
+  Future addUserDetails() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .add({
+          'email': _email.text.trim(),
+          'fullname': _fullname.text.trim(),
+          'birthdate': _birthdate.text.trim(),
+        })
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Registration Successful!'),
+                duration: Duration(seconds: 2),
+              ),
+            ))
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to register user: $error'),
+                duration: const Duration(seconds: 2),
+              ),
+            ));
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _pass.dispose();
+    _cpass.dispose();
+    _fullname.dispose();
+    _birthdate.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         color: Colors.white,
         padding: EdgeInsets.all(40.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
             Image(image: AssetImage('images/register.jpg')),
             Text(
               'Create an Account',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
             TextFormField(
-              controller: _uname,
+              controller: _email,
               decoration: InputDecoration(
-                labelText: 'Username',
+                labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -56,14 +101,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             SizedBox(height: 10),
             TextFormField(
-              controller: _email,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextFormField(
               controller: _fullname,
               decoration: InputDecoration(
                 labelText: 'Fullname',
@@ -82,8 +119,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ElevatedButton(
               onPressed: () {
                 // Handle registration logic here
+                registerUser();
               },
               child: Text('Register'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LoginPage()), // Replace with your SignUp widget
+                );
+              },
+              child: Text('Already have an account? Login'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Back', style: TextStyle(color: Colors.red)),
             ),
           ],
         ),

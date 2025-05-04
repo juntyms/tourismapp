@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'login_page.dart';
 import 'registration_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -239,7 +245,11 @@ class _SideDrawerState extends State<SideDrawer> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ));
+          },
         ),
         ListTile(
           leading: Icon(Icons.logout),
@@ -269,7 +279,7 @@ class _DropButtonState extends State<DropButton> {
   List tours = ['Sightseeing', 'Adventure', 'Relaxation'];
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 200.0,
       child: ListView(

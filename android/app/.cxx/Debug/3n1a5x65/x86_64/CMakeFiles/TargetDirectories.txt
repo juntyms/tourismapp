@@ -1,0 +1,2 @@
+C:/code/other_projects/utas/Flutter_Apps/tourismapp/android/app/.cxx/Debug/3n1a5x65/x86_64/CMakeFiles/edit_cache.dir
+C:/code/other_projects/utas/Flutter_Apps/tourismapp/android/app/.cxx/Debug/3n1a5x65/x86_64/CMakeFiles/rebuild_cache.dir
