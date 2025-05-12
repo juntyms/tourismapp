@@ -129,14 +129,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          LoginPage()), // Replace with your SignUp widget
+                          LoginPage()), // Replace with your Registration widget
                 );
               },
               child: Text('Already have an account? Login'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                //Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LoginPage()), // Replace with your SignUp widget
+                );
               },
               child: Text('Back', style: TextStyle(color: Colors.red)),
             ),

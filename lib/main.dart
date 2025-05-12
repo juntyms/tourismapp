@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'login_page.dart';
@@ -7,7 +8,12 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAz2ghiKEexz36J-nfxEQ3DwF-bt1rusR8",
+          appId: "1:503670974512:android:a7d9e1885cf11cc599e5f5",
+          messagingSenderId: "503670974512",
+          projectId: "tourismappasus"));
 
   runApp(const MyApp());
 }
@@ -22,7 +28,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHome());
+    return MaterialApp(home: LoginPage());
   }
 }
 
@@ -180,6 +186,11 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.popUntil(context, ModalRoute.withName("/"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -260,7 +271,9 @@ class _SideDrawerState extends State<SideDrawer> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            signOut();
+          },
         ),
       ]),
     );
