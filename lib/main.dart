@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'add_popular_place.dart';
+import 'view_popular_place.dart';
 import 'login_page.dart';
 import 'registration_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage());
+    return MaterialApp(home: MyHome());
   }
 }
 
@@ -231,6 +233,36 @@ class _SideDrawerState extends State<SideDrawer> {
             ),
           ),
           onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.question_answer),
+          title: Text(
+            'Add Popular Places',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AddPopularPlace(),
+            ));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.question_answer),
+          title: Text(
+            'View Popular Places',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ViewPopularPage(),
+            ));
+          },
         ),
         ListTile(
           leading: Icon(Icons.edit_document),
